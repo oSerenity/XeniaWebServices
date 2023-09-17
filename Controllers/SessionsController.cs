@@ -55,7 +55,7 @@ namespace XeniaWebServices.Controllers
             }
 
             // Execute the DeleteSessionCommand with the obtained IP address (ip)
-            new DeleteSessionCommand(null, null, new IpAddress(ip));
+            new DeleteSessionCommand(new TitleId(""),new SessionId(""));
 
             return Ok();
         }

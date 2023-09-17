@@ -1,6 +1,13 @@
-﻿namespace XeniaWebServices.responses
+﻿using XeniaWebServices.aggregates;
+
+namespace XeniaWebServices.responses
 {
-    public class FindLeaderboardsResponse
+    public interface LeaderboardResponse
+    {
+        int Id { get; set; }
+        List<Player> Players { get; set; }
+    }
+    public class FindLeaderboardsResponse : List<LeaderboardResponse>
     {
     }
 }

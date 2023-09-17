@@ -1,6 +1,7 @@
-﻿namespace XeniaWebServices.aggregates
+﻿namespace XeniaWebServices.responses
 {
     using System.Collections.Generic;
+    using XeniaWebServices.aggregates;
 
     public interface SessionArbitrationResponse
     {

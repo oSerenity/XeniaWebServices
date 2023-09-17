@@ -1,4 +1,6 @@
-﻿namespace XeniaWebServices.aggregates
+﻿using XeniaWebServices.aggregates;
+
+namespace XeniaWebServices.responses
 {
     public interface SessionDetailsResponse
     {
