@@ -42,7 +42,7 @@ namespace XeniaWebServices.Controllers
                 var machineId = playerInfo["machineId"]?.ToString();
                 string? hostAddress = playerInfo["hostAddress"]?.ToString();
                 var macAddress = playerInfo["macAddress"]?.ToString();
-
+                //Player(xuid, hostAddress, macAddress, machineId);
                 // Process the values as needed
                 // For this example, we'll just return them in the response
                 JObject jsonObject = new JObject
@@ -70,7 +70,7 @@ namespace XeniaWebServices.Controllers
             }
 
             var requestBody = HttpContext.Items["RequestBody"].ToString();
-            _logger.LogInformation("---Request Debug -  \r\n" + requestBody + "\r\n End---");
+
             try
             {
                 // Parse the stored request body as JSON
@@ -78,7 +78,7 @@ namespace XeniaWebServices.Controllers
 
                 // Extract values from the JSON object
                 var hostAddress = requestData["hostAddress"]?.ToString();
-
+                _logger.LogInformation("---Request Debug -  \r\n" + hostAddress + "\r\n End---");
                 // Process the values as needed
                 // For this example, we'll just return them in the response
                 var response = new
