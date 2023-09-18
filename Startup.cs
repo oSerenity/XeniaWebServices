@@ -1,13 +1,5 @@
-using Microsoft.AspNetCore.Http.Extensions;
-using XeniaWebServices;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
+using XeniaWebServices;
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -22,7 +14,10 @@ public class Startup
     {
         services.AddHttpClient();
         services.AddControllers();
-
+        services.AddRazorPages(options =>
+        {
+            options.Conventions.AddPageRoute("/EditFile", "title/{titleId}/{fileType}/edit");
+        });
         // Add Swagger
         services.AddSwaggerGen(options =>
         {
