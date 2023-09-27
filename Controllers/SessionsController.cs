@@ -26,7 +26,7 @@ namespace XeniaWebServices.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("sessions")]
-        public IActionResult CreateSession(int titleId, [FromBody] Session request)
+        public IActionResult CreateSession(string titleId, [FromBody] Session request)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace XeniaWebServices.Controllers
 
                     // Create a session using the provided parameters
                     session = Session.CreateSession(
-                        titleId,
+                         int.Parse(titleId, System.Globalization.NumberStyles.HexNumber),
                         request.SessionId,
                         request.HostAddress,
                         request.Flags,
@@ -67,7 +67,7 @@ namespace XeniaWebServices.Controllers
                     Console.WriteLine("Peer joining session" + request.SessionId);
 
                     // Retrieve the session based on titleId and session ID
-                    session = Session.Get(titleId, request.SessionId);
+                    session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SessionId);
                 }
 
                 // Return a success response
@@ -86,7 +86,7 @@ namespace XeniaWebServices.Controllers
             try
             {
                 // Call the logic to get session details based on titleId and sessionId
-                Session session = Session.Get(int.Parse(titleId), sessionId);
+                Session session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
 
                 if (session == null)
                 {
@@ -127,48 +127,50 @@ namespace XeniaWebServices.Controllers
         /// <param name="sessionData"></param>
         /// <returns></returns>
         [HttpDelete("sessions/{sessionId}")]
-        public IActionResult RemoveSession(int titleId, [FromRoute(Name = "sessionId")] string sessionId)
+        public IActionResult RemoveSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
         {
-            Session.DeleteSession(titleId, sessionId);
+            Session.DeleteSession(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
             return Ok();
         }
 
         [HttpPost("sessions/{sessionId}/join")]
-        public IActionResult JoinSession(int titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
+        public IActionResult JoinSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Joining Session
-            Session.Join(titleId, sessionId, request._Xuid); //Do Logic
+            Session.Join(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request._Xuid); //Do Logic
             return Ok();
         }
         [HttpPost("sessions/{sessionId}/leave")]
-        public IActionResult LeaveSession(int titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
+        public IActionResult LeaveSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Leaving Session
-            Session.Leave(titleId, sessionId, request._Xuid); //Do Logic
+            Session.Leave(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request._Xuid); //Do Logic
             return Ok();
         }
         [HttpPost("sessions/{sessionId}/modify")]
-        public IActionResult modifySession(int titleId, [FromRoute(Name = "sessionId")] string sessionId,[FromBody] Session request)
+        public IActionResult modifySession(string titleId, [FromRoute(Name = "sessionId")] string sessionId,[FromBody] Session request)
         {
-            Session.Modify(titleId, sessionId, request.Flags, request.PublicSlotsCount, request.PrivateSlotsCount); //Do Logic
+            Console.WriteLine(sessionId,"-");
+            var session = Session.Modify(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Flags, request.PublicSlotsCount, request.PrivateSlotsCount); //Do Logic
+            Console.WriteLine("",session.SessionId, "-");
             return Ok();
         }
         [HttpPost("sessions/search")]
-        public IActionResult SearchSession(int titleId, [FromBody] Session request)
+        public IActionResult SearchSession(string titleId, [FromBody] Session request)
         {
-            Session.Search(titleId, request.SearchIndex, request.ResultsCount); //Do Logic
+            Session.Search(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SearchIndex, request.ResultsCount); //Do Logic
             return Ok();
         }
         [HttpPost("sessions/{sessionId}")]
-        public IActionResult CurrentSession(int titleId, [FromRoute(Name = "sessionId")] string sessionId)
+        public IActionResult CurrentSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
         {
 
             return Ok();
         }
         [HttpPost("sessions/{sessionId}/arbitration")]
-        public IActionResult Arbitration(int titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
+        public IActionResult Arbitration(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
-           var session = Session.Get(titleId, sessionId);
+           var session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
             if(session == null)
             {
                 Ok("Session not found.");

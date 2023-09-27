@@ -54,11 +54,11 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpDelete("DeleteSessions")]
         public async Task<IActionResult> DeleteSession()
         {
-            if (session == null || string.IsNullOrWhiteSpace(Session.TitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
+            if (session == null || string.IsNullOrWhiteSpace(Session.StaticTitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
             {
                 return Ok("Session deleted successfully.");
             }
-            var retrievedSession = Session.Get(Session.TitleId, session.SessionId);
+            var retrievedSession = Session.Get(Session.StaticTitleId, session.SessionId);
             string clientIp = HttpContext.Connection.RemoteIpAddress.ToString();
 
             if (clientIp == "::1" || clientIp.StartsWith("192.168"))
@@ -72,7 +72,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
             }
 
             // Delete the session
-            Session.DeleteSession(Session.TitleId, session.SessionId);
+            Session.DeleteSession(Session.StaticTitleId, session.SessionId);
 
             return Ok("Session deleted successfully.");
         }

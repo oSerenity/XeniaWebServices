@@ -22,7 +22,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpGet("servers")]
         public IActionResult Servers(string titleId)
         {
-            Session.TitleId = int.Parse(titleId);
+            Session.StaticTitleId = int.Parse(titleId, System.Globalization.NumberStyles.HexNumber);
             string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
             string filePath = Path.Combine(directoryPath, "servers.json");
 
@@ -73,7 +73,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
     [HttpGet("ports")]
         public IActionResult Ports(string titleId)
         {
-            Session.TitleId = int.Parse(titleId);
+            Session.StaticTitleId = int.Parse(titleId, System.Globalization.NumberStyles.HexNumber); ;
             string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
             string filePath = Path.Combine(directoryPath, "ports.json");
 

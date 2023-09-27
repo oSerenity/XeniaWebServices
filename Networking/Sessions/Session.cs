@@ -23,16 +23,18 @@ namespace XeniaWebServices.Networking.Sessions
         public string? HostAddress { get; set; }
         public string? MacAddress { get; set; }
         public int? Port { get; set; }
-        public static int TitleId {get; set; }
-        public int TitleID 
+        public static int StaticTitleId { get; set; } // Rename the static property
+        public static string TitleId { get; set; }
+
+        public int TitleID
         {
             get
             {
-                return TitleId;
+                return StaticTitleId; // Access the static property
             }
             set
             {
-                TitleId = value;
+                StaticTitleId = value; // Modify the static property
             }
         }
         public int SearchIndex { get; internal set; }
@@ -133,27 +135,35 @@ namespace XeniaWebServices.Networking.Sessions
 
         internal static Session? Modify(int titleId, string sessionId, int flags, int? publicSlotsCount, int? privateSlotsCount)
         {
-            // Create the compound key using the same format as in CreateSession
             var compoundKey = $"{titleId}-{sessionId}";
 
-            // Check if the session exists in the dictionary
             if (Sessions.ContainsKey(compoundKey))
             {
-                // Get the existing session
                 var existingSession = Sessions[compoundKey];
-
-                // Update the session properties
+                existingSession.SessionId = sessionId;
                 existingSession.Flags = flags;
                 existingSession.PublicSlotsCount = publicSlotsCount;
                 existingSession.PrivateSlotsCount = privateSlotsCount;
 
-                // Return the updated session
+                // Find all players associated with this session and set their sessionId
+                foreach (var player in Player.ListOfPlayers.Values)
+                {
+                    if (player.SessionId == sessionId)
+                    {
+                        // Skip setting the session ID for players who already have the same session ID
+                        continue;
+                    }
+
+                    player.SessionId = sessionId;
+                    Console.WriteLine(player.SessionId, "-", player.Xuid);
+                }
+
                 return existingSession;
             }
 
-            // If the session does not exist, return null
             return null;
         }
+
 
         internal static void Join(int titleId, string sessionId, string xuid)
         {

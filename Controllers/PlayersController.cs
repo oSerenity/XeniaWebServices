@@ -7,6 +7,7 @@ using XeniaWebServices.Networking.Sessions;
 namespace XeniaWebServices.Controllers
 {
     [ApiController]
+    [Route("players")]
     public class PlayersController : Controller
     {
         private readonly ILogger<PlayersController> _logger;
@@ -20,7 +21,7 @@ namespace XeniaWebServices.Controllers
         {
             if (player != null)
             {
-                new Player(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
+                Player.Add(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
                 return Ok();
 
             }
