@@ -12,8 +12,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
     [ApiController]
     [Route("title/{titleId}")]
     public class TitleController : ControllerBase
-    {
-        // Inject the ILogger<T> into your controller or service
+    { 
         private readonly ILogger<TitleController> _logger;
         public TitleController(ILogger<TitleController> logger) 
         {
@@ -23,7 +22,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpGet("servers")]
         public IActionResult Servers(string titleId)
         {
-            Sessions.Save(titleId);
+            Session.TitleId = int.Parse(titleId);
             string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
             string filePath = Path.Combine(directoryPath, "servers.json");
 
@@ -74,7 +73,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
     [HttpGet("ports")]
         public IActionResult Ports(string titleId)
         {
-            Sessions.Save(titleId);
+            Session.TitleId = int.Parse(titleId);
             string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
             string filePath = Path.Combine(directoryPath, "ports.json");
 

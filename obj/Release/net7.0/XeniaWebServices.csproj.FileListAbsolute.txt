@@ -32,3 +32,15 @@ C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net7.0\refint\Xeni
 C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.pdb
 C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.genruntimeconfig.cache
 C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net7.0\ref\XeniaWebServices.dll
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.csproj.AssemblyReference.cache
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.AssemblyInfoInputs.cache
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.AssemblyInfo.cs
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.csproj.CoreCompileInputs.cache
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.RazorAssemblyInfo.cache
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.RazorAssemblyInfo.cs
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.dll
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\refint\XeniaWebServices.dll
+C:\Users\Kelp\Documents\GitHub\XeniaWebServices\obj\Release\net7.0\XeniaWebServices.pdb

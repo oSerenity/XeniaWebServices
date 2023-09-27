@@ -10,12 +10,12 @@ namespace XeniaWebServices.XenoAPI.Controllers
 {
     public class StartupController : ControllerBase
     {
-        Sessions session { get; set; }
+        Session session { get; set; }
         private readonly ILogger<StartupController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         Network Network { get; set; }
 
-        public StartupController(Sessions session, ILogger<StartupController> logger, IHttpClientFactory httpClientFactory)
+        public StartupController(Session session, ILogger<StartupController> logger, IHttpClientFactory httpClientFactory)
         {
             this.session = session;
             _logger = logger;
@@ -54,11 +54,11 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpDelete("DeleteSessions")]
         public async Task<IActionResult> DeleteSession()
         {
-            if (session == null || string.IsNullOrWhiteSpace(Sessions.TitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
+            if (session == null || string.IsNullOrWhiteSpace(Session.TitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
             {
                 return Ok("Session deleted successfully.");
             }
-            var retrievedSession = Sessions.GetSession(Sessions.TitleId, session.SessionId);
+            var retrievedSession = Session.Get(Session.TitleId, session.SessionId);
             string clientIp = HttpContext.Connection.RemoteIpAddress.ToString();
 
             if (clientIp == "::1" || clientIp.StartsWith("192.168"))
@@ -72,7 +72,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
             }
 
             // Delete the session
-            Sessions.DeleteSession(Sessions.TitleId, session.SessionId);
+            Session.DeleteSession(Session.TitleId, session.SessionId);
 
             return Ok("Session deleted successfully.");
         }

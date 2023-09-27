@@ -14,8 +14,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<Sessions>();
-        services.AddSingleton<Sessions>();
+        services.AddScoped<Session>();
+        services.AddSingleton<Session>();
         services.AddTransient<Network>();
         services.AddHttpClient();
         services.AddControllers()

@@ -20,7 +20,7 @@ namespace XeniaWebServices.Controllers
         {
             if (player != null)
             {
-                Sessions.AddPlayer(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
+                new Player(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
                 return Ok();
 
             }
@@ -34,7 +34,7 @@ namespace XeniaWebServices.Controllers
         public IActionResult FindPlayer([FromBody] Player request)
         {
             // Find the player by host address, assuming you have a method for that.
-            var player = Sessions.FindPlayerByHostAddress(request.HostAddress);
+            var player = Player.FindPlayer(request.HostAddress,Player.Players.HostAddress);
 
             if (player == null)
             {
