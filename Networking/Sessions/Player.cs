@@ -16,6 +16,11 @@
             HostAddress = hostAddress;
             MacAddress = macAddress;
         }
+
+        internal static Player FindPlayer(string hostAddress)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

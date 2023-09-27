@@ -4,19 +4,18 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Json;
 using XeniaWebServices.Networking;
-using XeniaWebServices.Networking.Sessions;
-using XeniaWebServices.Networking.Sessions.Manager;
+using XeniaWebServices.Networking.Sessions; 
 
 namespace XeniaWebServices.XenoAPI.Controllers
 {
     public class StartupController : ControllerBase
     {
-        Session session { get; set; }
+        Sessions session { get; set; }
         private readonly ILogger<StartupController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         Network Network { get; set; }
 
-        public StartupController(Session session, ILogger<StartupController> logger, IHttpClientFactory httpClientFactory)
+        public StartupController(Sessions session, ILogger<StartupController> logger, IHttpClientFactory httpClientFactory)
         {
             this.session = session;
             _logger = logger;
@@ -55,11 +54,11 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpDelete("DeleteSessions")]
         public async Task<IActionResult> DeleteSession()
         {
-            if (session == null || string.IsNullOrWhiteSpace(Session.TitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
+            if (session == null || string.IsNullOrWhiteSpace(Sessions.TitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
             {
                 return Ok("Session deleted successfully.");
             }
-            var retrievedSession = await SessionManager.GetSessionAsync(Session.TitleId.ToString("X"), session.SessionId);
+            var retrievedSession = Sessions.GetSession(Sessions.TitleId, session.SessionId);
             string clientIp = HttpContext.Connection.RemoteIpAddress.ToString();
 
             if (clientIp == "::1" || clientIp.StartsWith("192.168"))
@@ -73,7 +72,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
             }
 
             // Delete the session
-            await SessionManager.DeleteSessionAsync(Session.TitleId.ToString("X"), session.SessionId);
+            Sessions.DeleteSession(Sessions.TitleId, session.SessionId);
 
             return Ok("Session deleted successfully.");
         }

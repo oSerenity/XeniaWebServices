@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kelp\\Documents\\projects\\XeniaWebServices\\XeniaWebServices.csproj": {}
+    "C:\\Users\\Kelp\\Documents\\GitHub\\XeniaWebServices\\XeniaWebServices.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kelp\\Documents\\projects\\XeniaWebServices\\XeniaWebServices.csproj": {
+    "C:\\Users\\Kelp\\Documents\\GitHub\\XeniaWebServices\\XeniaWebServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kelp\\Documents\\projects\\XeniaWebServices\\XeniaWebServices.csproj",
+        "projectUniqueName": "C:\\Users\\Kelp\\Documents\\GitHub\\XeniaWebServices\\XeniaWebServices.csproj",
         "projectName": "XeniaWebServices",
-        "projectPath": "C:\\Users\\Kelp\\Documents\\projects\\XeniaWebServices\\XeniaWebServices.csproj",
+        "projectPath": "C:\\Users\\Kelp\\Documents\\GitHub\\XeniaWebServices\\XeniaWebServices.csproj",
         "packagesPath": "C:\\Users\\Kelp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kelp\\Documents\\projects\\XeniaWebServices\\obj\\",
+        "outputPath": "C:\\Users\\Kelp\\Documents\\GitHub\\XeniaWebServices\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",

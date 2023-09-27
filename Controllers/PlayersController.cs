@@ -2,8 +2,7 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using XeniaWebServices.Networking;
-using XeniaWebServices.Networking.Sessions;
-using XeniaWebServices.Networking.Sessions.Manager;
+using XeniaWebServices.Networking.Sessions; 
 
 namespace XeniaWebServices.Controllers
 {
@@ -21,7 +20,7 @@ namespace XeniaWebServices.Controllers
         {
             if (player != null)
             {
-                SessionManager.AddPlayer(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
+                Sessions.AddPlayer(player.Xuid, player.MachineId, player.HostAddress, player.MacAddress);
                 return Ok();
 
             }
@@ -35,7 +34,7 @@ namespace XeniaWebServices.Controllers
         public IActionResult FindPlayer([FromBody] Player request)
         {
             // Find the player by host address, assuming you have a method for that.
-            var player = SessionManager.FindPlayerByHostAddress(request.HostAddress);
+            var player = Sessions.FindPlayerByHostAddress(request.HostAddress);
 
             if (player == null)
             {
@@ -44,7 +43,7 @@ namespace XeniaWebServices.Controllers
             }
 
             // Create a PlayerResponse object based on the found player.
-            PlayerResponse playerResponse = new PlayerResponse
+            var playerResponse = new PlayerResponse
             {
                 xuid = player.Xuid,
                 hostAddress = player.HostAddress,

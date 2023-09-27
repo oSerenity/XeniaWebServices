@@ -1,7 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 using XeniaWebServices.Networking;
-using XeniaWebServices.Networking.Sessions;
-using XeniaWebServices.Networking.Sessions.Manager;
+using XeniaWebServices.Networking.Sessions; 
 
 public class Startup
 {
@@ -15,8 +14,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<Session>();
-        services.AddSingleton<SessionManager>();
+        services.AddScoped<Sessions>();
+        services.AddSingleton<Sessions>();
         services.AddTransient<Network>();
         services.AddHttpClient();
         services.AddControllers()
