@@ -1,0 +1,40 @@
+﻿@page
+@using XeniaWebServices;
+@model XeniaWebServices.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Management</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Include a link to your favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <h1>API Management Dashboard</h1>
+    </header>
+    <main>
+        <section id="api-list">
+            <h2>API List</h2>
+            <ul id="api-items">
+                @foreach (var api in IndexModel.ApiData)
+                {
+                    <li>@api.Name</li>
+                }
+            </ul>
+        </section>
+        <section id="api-details">
+            <h2>API Details</h2>
+            <div id="api-details-content">
+                <!-- API details will be displayed here when an item is selected -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; @DateTime.Now.Year Your Company</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\XeniaWebServices.exe
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\XeniaWebServices.dll
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\XeniaWebServices.runtimeconfig.json
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\XeniaWebServices.pdb
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\runtimes\linux\native\libmongocrypt.so
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\runtimes\osx\native\libmongocrypt.dylib
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\runtimes\win\native\mongocrypt.dll
+C:\Users\Kelp\Documents\projects\XeniaWebServices\obj\Release\net6.0\PubTmp\Out\XeniaWebServices.deps.json

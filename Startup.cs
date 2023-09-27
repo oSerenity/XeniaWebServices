@@ -1,18 +1,29 @@
-using Microsoft.OpenApi.Models;
-using XeniaWebServices;
+﻿using Microsoft.OpenApi.Models;
+using XeniaWebServices.Networking;
+using XeniaWebServices.Networking.Sessions;
+using XeniaWebServices.Networking.Sessions.Manager;
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
-
+        Console.Clear();
     }
 
     public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddScoped<Session>();
+        services.AddSingleton<SessionManager>();
+        services.AddTransient<Network>();
         services.AddHttpClient();
+        services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null; // To keep original casing
+    });
         services.AddControllers();
         services.AddRazorPages(options =>
         {
@@ -70,32 +81,36 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "index",
+                pattern: "/",
+                defaults: new { controller = "Home", action = "Index" });
 
             endpoints.MapControllerRoute(
                 name: "whoami",
                 pattern: "whoami",
-                defaults: new { controller = "Sessions", action = "WhoAmI" });
+                defaults: new { controller = "Startup", action = "WhoAmI" });
 
             endpoints.MapControllerRoute(
                 name: "DeleteSessions",
                 pattern: "DeleteSessions",
-                defaults: new { controller = "Sessions", action = "DeleteSessions" });
+                defaults: new { controller = "Startup", action = "DeleteSessions" });
 
             endpoints.MapControllerRoute(
                 name: "players-find",
                 pattern: "players/find",
-                defaults: new { controller = "Player", action = "FindPlayer" });
+                defaults: new { controller = "Players", action = "FindPlayer" });
 
             // Define the 'players' endpoint
             endpoints.MapControllerRoute(
                 name: "players",
                 pattern: "players",
-                defaults: new { controller = "Players", action = "PostPlayerInfo" }
+                defaults: new { controller = "Players", action = "CreatePlayer" }
             );
+            endpoints.MapControllerRoute(
+                name: "Session",
+                pattern: "title/{titleId}/ports",
+                defaults: new { controller = "Title", action = "StartSession" });
 
-            // Add a route for the URL format "127.0.0.1:36000/title/58410ae9/ports"
             endpoints.MapControllerRoute(
                 name: "ports",
                 pattern: "title/{titleId}/ports",
@@ -105,6 +120,10 @@ public class Startup
                 name: "Servers",
                 pattern: "title/{titleId}/servers",
                 defaults: new { controller = "Title", action = "Servers" });
+            endpoints.MapControllerRoute(
+                name: "Servers",
+                pattern: "/EditFile",
+                defaults: new { controller = "EditFile", action = "OnPostAsync" });
         });
     }
 }
