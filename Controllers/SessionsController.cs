@@ -8,7 +8,7 @@ using XeniaWebServices.XenoAPI.Controllers;
 namespace XeniaWebServices.Controllers
 {
     [ApiController]
-    [Route("sessions")]
+    [Route("{titleId}/sessions")]
     public class SessionsController : Controller
     {
 
@@ -25,59 +25,58 @@ namespace XeniaWebServices.Controllers
         /// <param name="titleId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("sessions")]
-        public IActionResult CreateSession(string titleId, [FromBody] Session request)
+        [HttpPost("{titleId}/sessions")]
+        public IActionResult CreateSession(string titleId)
         {
-            try
-            {
-                if (request.IsHost(request.Flags))
-                {
-                    // If the request indicates the host is creating a session
-                    Console.WriteLine("Host creating session" + request.SessionId);
+            return Ok();
+            //try
+            //{
+            //    if (Session.IsHost(request.Flags))
+            //    {
+            //        // If the request indicates the host is creating a session
+            //        Console.WriteLine("Host creating session" + request.SessionId);
 
-                    // Create a session using the provided parameters
-                    session = Session.CreateSession(
-                         int.Parse(titleId, System.Globalization.NumberStyles.HexNumber),
-                        request.SessionId,
-                        request.HostAddress,
-                        request.Flags,
-                        request.PublicSlotsCount,
-                        request.PrivateSlotsCount,
-                        request.MacAddress,
-                        request.Port
-                    );
+            //        // Create a session using the provided parameters
+            //        session = Session.CreateSession(
+            //             int.Parse(titleId, System.Globalization.NumberStyles.HexNumber),
+            //            request.SessionId,
+            //            request.HostAddress,
+            //            request.Flags,
+            //            request.PublicSlotsCount,
+            //            request.PrivateSlotsCount,
+            //            request.MacAddress,
+            //            request.Port
+            //        );
 
-                    try
-                    {
-                        // Find the player associated with the host's hostAddress
-                        Player player = Player.FindPlayer(request.HostAddress, Player.Players.HostAddress);
-                        
+            //        try
+            //        {
+            //            // Find the player associated with the host's hostAddress
+            //            Player player = Player.FindPlayer(request.HostAddress, Player.Players.HostAddress);
+            //            // Set the player's session ID to the newly created session ID
+            //            player.SetPlayerSessionId(player.Xuid, request.SessionId);
+            //        }
+            //        catch (Exception)
+            //        {
+            //            Console.WriteLine("BAD PLAYER " + request.HostAddress);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // If a peer is joining the session
+            //        Console.WriteLine("Peer joining session" + request.SessionId);
 
-                        // Set the player's session ID to the newly created session ID
-                        Player.SetPlayerSessionId(player.Xuid, request.SessionId);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("BAD PLAYER " + request.HostAddress);
-                    }
-                }
-                else
-                {
-                    // If a peer is joining the session
-                    Console.WriteLine("Peer joining session" + request.SessionId);
+            //        // Retrieve the session based on titleId and session ID
+            //        session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SessionId);
+            //    }
 
-                    // Retrieve the session based on titleId and session ID
-                    session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SessionId);
-                }
-
-                // Return a success response
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions and return an appropriate error response
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
+            //    // Return a success response
+            //    return Ok();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Handle exceptions and return an appropriate error response
+            //    return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            //}
         }
         // 🌈🌈🌈 This fabulous function is here to slay! Yasss queen! 💅💅💅
         [HttpGet("/{sessionId}/details")]
@@ -133,21 +132,21 @@ namespace XeniaWebServices.Controllers
             return Ok();
         }
 
-        [HttpPost("sessions/{sessionId}/join")]
+        [HttpPost("join")]
         public IActionResult JoinSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Joining Session
-            Session.Join(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request._Xuid); //Do Logic
+            Session.Join(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Xuid); //Do Logic
             return Ok();
         }
-        [HttpPost("sessions/{sessionId}/leave")]
+        [HttpPost("leave")]
         public IActionResult LeaveSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Leaving Session
-            Session.Leave(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request._Xuid); //Do Logic
+            Session.Leave(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Xuid); //Do Logic
             return Ok();
         }
-        [HttpPost("sessions/{sessionId}/modify")]
+        [HttpPost("/modify")]
         public IActionResult modifySession(string titleId, [FromRoute(Name = "sessionId")] string sessionId,[FromBody] Session request)
         {
             Console.WriteLine(sessionId,"-");
@@ -222,6 +221,17 @@ namespace XeniaWebServices.Controllers
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
+        }
+
+        public class SessionRequest
+        {
+            public int Flags { get; internal set; }
+            public string SessionId { get; internal set; }
+            public string HostAddress { get; internal set; }
+            public int? PublicSlotsCount { get; internal set; }
+            public int? PrivateSlotsCount { get; internal set; }
+            public string MacAddress { get; internal set; }
+            public int? Port { get; internal set; }
         }
     }
 

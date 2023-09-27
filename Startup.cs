@@ -85,14 +85,29 @@ public class Startup
                 defaults: new { controller = "Home", action = "Index" });
 
             endpoints.MapControllerRoute(
+                name: "Servers",
+                pattern: "/EditFile",
+                defaults: new { controller = "EditFile", action = "OnPostAsync" });
+            //working - 9/27/23
+            endpoints.MapControllerRoute(
                 name: "whoami",
                 pattern: "whoami",
                 defaults: new { controller = "Startup", action = "WhoAmI" });
-
+            //working - 9/27/23
             endpoints.MapControllerRoute(
                 name: "DeleteSessions",
                 pattern: "DeleteSessions",
                 defaults: new { controller = "Startup", action = "DeleteSessions" });
+            //working - 9/27/23
+            endpoints.MapControllerRoute(
+                name: "ports",
+                pattern: "title/{titleId}/ports",
+                defaults: new { controller = "Title", action = "Ports" });
+
+            endpoints.MapControllerRoute(
+                name: "Servers",
+                pattern: "title/{titleId}/servers",
+                defaults: new { controller = "Title", action = "Servers" });
 
             endpoints.MapControllerRoute(
                 name: "players-find",
@@ -106,23 +121,21 @@ public class Startup
                 defaults: new { controller = "Players", action = "CreatePlayer" }
             );
             endpoints.MapControllerRoute(
-                name: "Session",
-                pattern: "title/{titleId}/ports",
-                defaults: new { controller = "Title", action = "StartSession" });
+                name: "StartSession",
+                pattern: "sessions/{sessionId}",
+                defaults: new { controller = "Sessions", action = "StartSession" });
 
             endpoints.MapControllerRoute(
-                name: "ports",
-                pattern: "title/{titleId}/ports",
-                defaults: new { controller = "Title", action = "Ports" });
+                name: "modify",
+                pattern: "sessions/{sessionId}/modify",
+                defaults: new { controller = "Sessions", action = "modifySession" });
 
             endpoints.MapControllerRoute(
-                name: "Servers",
-                pattern: "title/{titleId}/servers",
-                defaults: new { controller = "Title", action = "Servers" });
-            endpoints.MapControllerRoute(
-                name: "Servers",
-                pattern: "/EditFile",
-                defaults: new { controller = "EditFile", action = "OnPostAsync" });
+                name: "Create",
+                pattern: "sessions",
+                defaults: new { controller = "Sessions", action = "CreateSession" });
+
+
         });
     }
 }

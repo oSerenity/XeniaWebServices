@@ -8,12 +8,12 @@ namespace XeniaWebServices.Networking.Sessions
     {
         public static Dictionary<string, Player> ListOfPlayers { get; private set; } = new Dictionary<string, Player>();
 
-        public string Xuid { get; set; }
-        public string MachineId { get; set; }
-        public string HostAddress { get; set; }
-        public string MacAddress { get; set; }
-        public string SessionId { get; internal set; }
-        public int Port { get; internal set; } = 1001;
+        public string? Xuid { get; set; }
+        public string? MachineId { get; set; }
+        public string? HostAddress { get; set; }
+        public string? MacAddress { get; set; }
+        public string? SessionId { get; internal set; }
+        public int? Port { get; internal set; } = 1001;
 
         public Player(string xuid, string machineId, string hostAddress, string macAddress)
         {
@@ -41,11 +41,7 @@ namespace XeniaWebServices.Networking.Sessions
             }
             return null;
         }
-        public static Player FindPlayerBySessionId(string sessionId)
-        {
-            return ListOfPlayers?.FirstOrDefault(player => player.Value.SessionId == sessionId).Value;
-        }
-        internal static void SetPlayerSessionId(string xuid, string sessionId)
+        internal void SetPlayerSessionId(string xuid, string sessionId)
         {
             if (ListOfPlayers.TryGetValue(xuid, out var player))
             {
@@ -55,7 +51,14 @@ namespace XeniaWebServices.Networking.Sessions
 
         internal static void Add(string xuid, string machineId, string hostAddress, string macAddress)
         {
-            ListOfPlayers[xuid] = new Player(xuid, machineId, hostAddress, macAddress);
+            if (!ListOfPlayers.ContainsKey(xuid))
+            {
+                ListOfPlayers[hostAddress] = new Player(xuid, machineId, hostAddress, macAddress);
+            }
+            else
+            {
+                Console.WriteLine($"Player with Host Address {hostAddress} already exists. Skipping addition.");
+            }
         }
 
         public enum Players

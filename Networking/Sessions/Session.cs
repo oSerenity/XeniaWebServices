@@ -1,5 +1,6 @@
 ﻿//Handles The Logic Behind the requests
 
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,21 +13,19 @@ namespace XeniaWebServices.Networking.Sessions
         /// Stores Sessions That Are Currently Active
         /// </summary>
         public static Dictionary<string, Session> Sessions { get; private set; } = new Dictionary<string, Session>();
-        public static string Xuid { get; set; }
-        public string _Xuid { get; set; }
-        public static string MachineId { get; set; } 
+        public static string? MachineId { get; set; } 
         public string? SessionId { get; set; }
-        public int Flags { get; set; }
+        public int? Flags { get; set; }
         public int? PublicSlotsCount { get; set; }
         public int? PrivateSlotsCount { get; set; }
         public int? UserIndex { get; set; }
         public string? HostAddress { get; set; }
         public string? MacAddress { get; set; }
         public int? Port { get; set; }
-        public static int StaticTitleId { get; set; } // Rename the static property
-        public static string TitleId { get; set; }
+        public static int? StaticTitleId { get; set; } // Rename the static property
+        public static string? TitleId { get; set; }
 
-        public int TitleID
+        public int? TitleID
         {
             get
             {
@@ -37,10 +36,11 @@ namespace XeniaWebServices.Networking.Sessions
                 StaticTitleId = value; // Modify the static property
             }
         }
-        public int SearchIndex { get; internal set; }
-        public int ResultsCount { get; internal set; }
-        public int TotalPlayers { get; set; }
-        public List<MachineDetails> Machines { get; set; }
+        public int? SearchIndex { get; internal set; }
+        public int? ResultsCount { get; internal set; }
+        public int? TotalPlayers { get; set; }
+        public List<MachineDetails>? Machines { get; set; }
+        public string? Xuid { get; internal set; }
 
         public class MachineDetails
         {
@@ -70,7 +70,7 @@ namespace XeniaWebServices.Networking.Sessions
                 return sessionId.ToString();
             }
         }
-        internal static void DeleteSession(int titleId, string sessionId)
+        internal static void DeleteSession(int? titleId, string sessionId)
         {
             // Create the compound key using the same format as in CreateSession
             var compoundKey = $"{titleId}-{sessionId}";
@@ -82,7 +82,7 @@ namespace XeniaWebServices.Networking.Sessions
                 Sessions.Remove(compoundKey);
             }
         }
-        internal static Session CreateSession(int titleId, string sessionId, string hostAddress, int flags, int? publicSlotsCount, int? privateSlotsCount, string macAddress, int? port)
+        internal static Session CreateSession(int titleId, string sessionId, string hostAddress, int? flags, int? publicSlotsCount, int? privateSlotsCount, string macAddress, int? port)
         {
             // Create a new Session object with the provided parameters
             var session = new Session
@@ -107,12 +107,12 @@ namespace XeniaWebServices.Networking.Sessions
         }
 
 
-        public bool IsHost(int flags)
+        public static bool IsHost(int? flags)
         {
             return (flags & (1 << 0)) > 0;
         }
 
-        internal static Session? Get(int titleId, string? sessionId)
+        internal static Session? Get(int? titleId, string? sessionId)
         {
             if (sessionId == null)
             {
@@ -133,7 +133,7 @@ namespace XeniaWebServices.Networking.Sessions
             return null;
         }
 
-        internal static Session? Modify(int titleId, string sessionId, int flags, int? publicSlotsCount, int? privateSlotsCount)
+        internal static Session? Modify(int titleId, string sessionId, int? flags, int? publicSlotsCount, int? privateSlotsCount)
         {
             var compoundKey = $"{titleId}-{sessionId}";
 
@@ -165,17 +165,17 @@ namespace XeniaWebServices.Networking.Sessions
         }
 
 
-        internal static void Join(int titleId, string sessionId, string xuid)
+        internal static void Join(int titleId, string sessionId, string? xuid)
         {
             throw new NotImplementedException();
         }
 
-        internal static void Leave(int titleId, string sessionId, string xuid)
+        internal static void Leave(int titleId, string sessionId, string? xuid)
         {
             throw new NotImplementedException();
         }
 
-        internal static List<Session> Search(int titleId, int searchIndex, int resultsCount)
+        internal static List<Session> Search(int titleId, int? searchIndex, int? resultsCount)
         {
             // Filter sessions by titleId
             var filteredSessions = Sessions.Values.Where(session => session.TitleID == titleId);
@@ -185,7 +185,7 @@ namespace XeniaWebServices.Networking.Sessions
             var searchedSessions = filteredSessions.Where(session => session.Flags >= searchIndex).ToList();
 
             // Return a limited number of results based on resultsCount
-            return searchedSessions.Take(resultsCount).ToList();
+            return searchedSessions.Take((int)resultsCount).ToList();
         }
     }
 }

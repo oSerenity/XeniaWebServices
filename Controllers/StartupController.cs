@@ -54,7 +54,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
         [HttpDelete("DeleteSessions")]
         public async Task<IActionResult> DeleteSession()
         {
-            if (session == null || string.IsNullOrWhiteSpace(Session.StaticTitleId.ToString("X")) || string.IsNullOrWhiteSpace(session.SessionId))
+            if (session == null || string.IsNullOrWhiteSpace(Session.StaticTitleId.ToString()) || string.IsNullOrWhiteSpace(session.SessionId))
             {
                 return Ok("Session deleted successfully.");
             }
