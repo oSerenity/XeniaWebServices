@@ -8,7 +8,7 @@ using XeniaWebServices.XenoAPI.Controllers;
 namespace XeniaWebServices.Controllers
 {
     [ApiController]
-    [Route("{titleId}/sessions")]
+    [Route("title/{titleId}/sessions")]
     public class SessionsController : Controller
     {
 
@@ -25,8 +25,8 @@ namespace XeniaWebServices.Controllers
         /// <param name="titleId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("{titleId}/sessions")]
-        public IActionResult CreateSession(string titleId)
+        [HttpPost("/sessions")]
+        public IActionResult CreateSession()
         {
             return Ok();
             //try
