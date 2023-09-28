@@ -128,7 +128,7 @@ public class Startup
             endpoints.MapControllerRoute(
                 name: "Modify",
                 pattern: "sessions/{sessionId}/modify",
-                defaults: new { controller = "Sessions", action = "modifySession" });
+                defaults: new { controller = "Sessions", action = "ModifySession" });
 
             endpoints.MapControllerRoute(
                 name: "Create",

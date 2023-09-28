@@ -114,3 +114,359 @@ ContentType: application/json
 }
 --------------------------------------------
 
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions
+Path: /title/4d5307d6/sessions
+Accept: */*
+Connection: keep-alive
+Host: 127.0.0.1:36000
+User-Agent: PostmanRuntime/7.33.0
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 230
+Postman-Token: 2bd8cf9a-711b-4461-85f2-9c7d3072dcd9
+ContentLength: 230
+ContentType: application/json
+---------- Request Body ----------
+{
+    "sessionId": "73a926b11b5544a4",
+    "flags": 35,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0,
+    "userIndex": 0,
+    "hostAddress": "71.74.128.154",
+    "macAddress": "3c6225a47831",
+    "port": 36000
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: DELETE
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/DeleteSessions
+Path: /DeleteSessions
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: GET
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/ports
+Path: /title/4d5307d6/ports
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: DELETE
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/DeleteSessions
+Path: /DeleteSessions
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: GET
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/ports
+Path: /title/4d5307d6/ports
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: GET
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/whoami
+Path: /whoami
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/players
+Path: /players
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+Content-Length: 141
+charset: utf-8
+ContentLength: 141
+ContentType: application/json
+---------- Request Body ----------
+{
+    "xuid": "000900000d296242",
+    "machineId": "fa00cc35525a9ad9",
+    "hostAddress": "71.74.128.154",
+    "macAddress": "cc35525a9ad9"
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: GET
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/ports
+Path: /title/4d5307d6/ports
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: GET
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/whoami
+Path: /whoami
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/players
+Path: /players
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+Content-Length: 141
+charset: utf-8
+ContentLength: 141
+ContentType: application/json
+---------- Request Body ----------
+{
+    "xuid": "000900000d296242",
+    "machineId": "fa00cc35525a9ad9",
+    "hostAddress": "71.74.128.154",
+    "macAddress": "cc35525a9ad9"
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/leaderboards/find
+Path: /leaderboards/find
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+Content-Length: 257
+charset: utf-8
+ContentLength: 257
+ContentType: application/json
+---------- Request Body ----------
+{
+    "players": [
+        "000900000d296242"
+    ],
+    "titleId": "4d5307d6",
+    "queries": [
+        {
+            "id": 4294836224,
+            "statisticIds": [
+                63,
+                64,
+                61
+            ]
+        }
+    ]
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions
+Path: /title/4d5307d6/sessions
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+Content-Length: 221
+charset: utf-8
+ContentLength: 221
+ContentType: application/json
+---------- Request Body ----------
+{
+    "sessionId": "90d4000ffb8a4dcb",
+    "flags": 35,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0,
+    "userIndex": 0,
+    "hostAddress": "71.74.128.154",
+    "macAddress": "cc35525a9ad9",
+    "port": 36000
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions/90d4000ffb8a4dcb/modify
+Path: /title/4d5307d6/sessions/90d4000ffb8a4dcb/modify
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+Content-Length: 76
+charset: utf-8
+ContentLength: 76
+ContentType: application/json
+---------- Request Body ----------
+{
+    "flags": 547,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: DELETE
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/DeleteSessions
+Path: /DeleteSessions
+Accept: application/json
+Host: 127.0.0.1:36000
+User-Agent: xenia
+Content-Type: application/json
+charset: utf-8
+ContentType: application/json
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions
+Path: /title/4d5307d6/sessions
+Accept: */*
+Connection: keep-alive
+Host: 127.0.0.1:36000
+User-Agent: PostmanRuntime/7.33.0
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 230
+Postman-Token: 9b8e182c-da04-4291-a134-415bb9b57ab6
+ContentLength: 230
+ContentType: application/json
+---------- Request Body ----------
+{
+    "sessionId": "73a926b11b5544a4",
+    "flags": 35,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0,
+    "userIndex": 0,
+    "hostAddress": "71.74.128.154",
+    "macAddress": "3c6225a47831",
+    "port": 36000
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions
+Path: /title/4d5307d6/sessions
+Accept: */*
+Connection: keep-alive
+Host: 127.0.0.1:36000
+User-Agent: PostmanRuntime/7.33.0
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 230
+Postman-Token: 4924af69-cdc4-4a6b-88d6-c43be49005a9
+ContentLength: 230
+ContentType: application/json
+---------- Request Body ----------
+{
+    "sessionId": "73a926b11b5544a4",
+    "flags": 35,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0,
+    "userIndex": 0,
+    "hostAddress": "71.74.128.154",
+    "macAddress": "3c6225a47831",
+    "port": 36000
+}
+--------------------------------------------
+
+---------- Request Details ----------
+Host: 127.0.0.1:36000
+Method: POST
+Protocol: HTTP/1.1
+URL: http://127.0.0.1:36000/title/4d5307d6/sessions
+Path: /title/4d5307d6/sessions
+Accept: */*
+Connection: keep-alive
+Host: 127.0.0.1:36000
+User-Agent: PostmanRuntime/7.33.0
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 230
+Postman-Token: baf16c80-e192-475d-b99e-770f85b039c4
+ContentLength: 230
+ContentType: application/json
+---------- Request Body ----------
+{
+    "sessionId": "73a926b11b5544a4",
+    "flags": 35,
+    "publicSlotsCount": 16,
+    "privateSlotsCount": 0,
+    "userIndex": 0,
+    "hostAddress": "71.74.128.154",
+    "macAddress": "3c6225a47831",
+    "port": 36000
+}
+--------------------------------------------
+
