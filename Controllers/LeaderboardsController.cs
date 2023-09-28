@@ -12,7 +12,7 @@ namespace XeniaWebServices.Controllers
         {
             return View();
         }
-        [HttpPost("leaderboards/find")] 
+        [HttpPost("find")] 
         public ActionResult<FindLeaderboardsResponse> FindPlayer([FromBody] LeaderboardsRequest request)
         {
             try

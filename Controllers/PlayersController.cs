@@ -51,7 +51,7 @@ namespace XeniaWebServices.Controllers
                 machineId = player.MachineId,
                 port = player.Port, // Assuming this is correct, it should match the type expected by PlayerResponse.
                 macAddress = player.MacAddress,
-                sessionId = player.SessionId ?? "763c2a30975b6a29"
+                sessionId = player.SessionId ?? "0000000000000000"
             };
             Console.WriteLine($"JSON Response content: \n\r {JsonConvert.SerializeObject(playerResponse)}");
             // Return the PlayerResponse as a JsonResult.

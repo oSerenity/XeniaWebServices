@@ -6,7 +6,7 @@ using System.Text;
 
 namespace XeniaWebServices.Networking.Sessions
 {
-    public class Session
+    public class Session 
     {
 
         /// <summary>
@@ -23,7 +23,6 @@ namespace XeniaWebServices.Networking.Sessions
         public string? MacAddress { get; set; }
         public int? Port { get; set; }
         public static int? StaticTitleId { get; set; } // Rename the static property
-        public static string? TitleId { get; set; }
 
         public int? TitleID
         {
@@ -51,6 +50,14 @@ namespace XeniaWebServices.Networking.Sessions
         public class PlayerDetails
         {
             public string Xuid { get; set; }
+        }
+        public static bool IsHost(int? flags)
+        {
+            return (flags & (1 << 0)) > 0;
+        }
+        public bool Advertised(int value)
+        {
+            return (value & (1 << 3)) > 0;
         }
 
         public static string RandomSessionId()
@@ -98,21 +105,15 @@ namespace XeniaWebServices.Networking.Sessions
             };
 
             // Create a compound key by concatenating titleId and sessionId
-            var compoundKey = $"{titleId}-{sessionId}";
+            var compoundKey = $"{titleId}-{sessionId}-{hostAddress}-{macAddress}-{port}";
 
             // Add the session to the dictionary using the compound key as the key
             Sessions[compoundKey] = session;
 
             return session;
-        }
+        } 
 
-
-        public static bool IsHost(int? flags)
-        {
-            return (flags & (1 << 0)) > 0;
-        }
-
-        internal static Session? Get(int? titleId, string? sessionId)
+        internal static Session? Find(int? titleId, string? sessionId)
         {
             if (sessionId == null)
             {
@@ -167,12 +168,65 @@ namespace XeniaWebServices.Networking.Sessions
 
         internal static void Join(int titleId, string sessionId, string? xuid)
         {
-            throw new NotImplementedException();
+            // Check if the session exists
+            var session = Find(titleId, sessionId);
+            if (session != null && xuid != null)
+            {
+                // You can perform additional checks or validation here if needed.
+                // For example, check if the player with the provided xuid exists.
+
+                // Add the player to the session's list of players (if not already present)
+                if (session.Machines == null)
+                {
+                    session.Machines = new List<MachineDetails>();
+                }
+
+                // Find the machine or create a new one if it doesn't exist
+                var machine = session.Machines.FirstOrDefault(m => m.Id == "default");
+                if (machine == null)
+                {
+                    machine = new MachineDetails { Id = "default", Players = new List<PlayerDetails>() };
+                    session.Machines.Add(machine);
+                }
+
+                // Add the player to the machine's list of players (if not already present)
+                var player = machine.Players.FirstOrDefault(p => p.Xuid == xuid);
+                if (player == null)
+                {
+                    machine.Players.Add(new PlayerDetails { Xuid = xuid });
+                }
+            }
+            else
+            {
+                // Handle the case where the session or xuid is invalid.
+                // You can throw an exception, log an error, or handle it based on your application's requirements.
+                throw new Exception("Invalid session or xuid");
+            }
         }
+
 
         internal static void Leave(int titleId, string sessionId, string? xuid)
         {
-            throw new NotImplementedException();
+            var compoundKey = $"{titleId}-{sessionId}";
+
+            if (Sessions.ContainsKey(compoundKey))
+            {
+                var session = Sessions[compoundKey];
+
+                // Check if xuid is provided and exists in the session's machines
+                if (!string.IsNullOrEmpty(xuid) && session.Machines != null)
+                {
+                    foreach (var machine in session.Machines)
+                    {
+                        var playerToRemove = machine.Players.FirstOrDefault(player => player.Xuid == xuid);
+                        if (playerToRemove != null)
+                        {
+                            machine.Players.Remove(playerToRemove);
+                            Console.WriteLine($"Player {xuid} has left the session {sessionId}");
+                        }
+                    }
+                }
+            }
         }
 
         internal static List<Session> Search(int titleId, int? searchIndex, int? resultsCount)
@@ -187,5 +241,29 @@ namespace XeniaWebServices.Networking.Sessions
             // Return a limited number of results based on resultsCount
             return searchedSessions.Take((int)resultsCount).ToList();
         }
+
+        internal static Session Migrate(int titleId, string SessionId, string hostAddress, string macAddress, int? port)
+        {
+            // Create a new session with the provided parameters
+            string newSessionId = RandomSessionId();
+            var newSession = CreateSession(titleId, newSessionId, hostAddress, 0, 0, 0, macAddress, port);
+
+            // Transfer any relevant data from the old session to the new one
+            var oldSession = Find(titleId, SessionId);
+            if (oldSession != null)
+            {
+                newSession.Flags = oldSession.Flags;
+                newSession.PublicSlotsCount = oldSession.PublicSlotsCount;
+                newSession.PrivateSlotsCount = oldSession.PrivateSlotsCount;
+                newSession.UserIndex = oldSession.UserIndex;
+                newSession.Xuid = oldSession.Xuid;
+            }
+
+            // Delete the old session (if necessary)
+            DeleteSession(titleId, SessionId);
+
+            return newSession;
+        }
+         
     }
 }

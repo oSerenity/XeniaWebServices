@@ -69,5 +69,5 @@ namespace XeniaWebServices.Networking.Sessions
             MacAddress,
             HostAddress
         }
-    }
+    } 
 }

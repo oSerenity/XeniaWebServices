@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
 using XeniaWebServices.Networking.Sessions;
-using XeniaWebServices.XenoAPI.Controllers; 
+using XeniaWebServices.XenoAPI.Controllers;
+using XeniaWebServices.Networking;
+using static XeniaWebServices.Controllers.PlayersController;
 
 namespace XeniaWebServices.Controllers
 {
@@ -11,12 +13,13 @@ namespace XeniaWebServices.Controllers
     [Route("title/{titleId}/sessions")]
     public class SessionsController : Controller
     {
-         
+        Network Network { get; set; }
         // Inject the ILogger<T> into your controller or service
         private readonly ILogger<SessionsController> _logger;
-        public SessionsController(ILogger<SessionsController> logger)
+        public SessionsController(ILogger<SessionsController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
+            Network = new Network(httpClientFactory);
         }
         /// <summary>
         /// Creates Unique Session With it's Session Information
@@ -27,6 +30,7 @@ namespace XeniaWebServices.Controllers
         [HttpPost]
         public IActionResult CreateSession(string titleId, [FromBody] SessionRequest request)
         {
+            Session session = null;
             try
             {
                 if (Session.IsHost(request.flags))
@@ -35,7 +39,7 @@ namespace XeniaWebServices.Controllers
                     Console.WriteLine("Host creating session" + request.sessionId);
 
                     // Create a session using the provided parameters
-                     Session.CreateSession(
+                    session =  Session.CreateSession(
                          int.Parse(titleId, System.Globalization.NumberStyles.HexNumber),
                         request.sessionId,
                         request.hostAddress,
@@ -64,11 +68,11 @@ namespace XeniaWebServices.Controllers
                     Console.WriteLine("Peer joining session" + request.sessionId);
 
                     // Retrieve the session based on titleId and session ID
-                    Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.sessionId);
+                    session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.sessionId);
                 }
 
                 // Return a success response
-                return Ok();
+                return Ok(session);
             }
             catch (Exception ex)
             {
@@ -83,7 +87,7 @@ namespace XeniaWebServices.Controllers
             try
             {
                 // Call the logic to get session details based on titleId and sessionId
-                Session session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
+                Session session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
 
                 if (session == null)
                 {
@@ -117,27 +121,48 @@ namespace XeniaWebServices.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
         /// <summary>
         /// Deletes The Session With Unique ID.
         /// </summary>
         /// <param name="titleId"></param>
         /// <param name="sessionData"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         [HttpDelete("{sessionId}")]
-        public IActionResult RemoveSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
+        public async Task<IActionResult> RemoveSessionAsync(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
         {
+            var session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId); 
+            string? clientIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+            if (clientIp == "127.0.0.1" || clientIp.StartsWith("192.168"))
+            { 
+                // Hi me! Who are you?
+                clientIp = await Network.GetPublicIpAddressAsync();
+            }
+
+            if (session == null || session.HostAddress != clientIp)
+            {
+                return NotFound();
+            }
             Session.DeleteSession(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
-            return Ok();
+
+            return NoContent(); // 204 No Content 
         }
 
-        [HttpPost("join")]
+        [HttpGet("{sessionId}")]
+        public IActionResult CurrentSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
+        {
+            var session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
+            return Ok(session);
+        }
+        [HttpPost("{sessionId}/join")]
         public IActionResult JoinSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Joining Session
             Session.Join(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Xuid); //Do Logic
             return Ok();
         }
-        [HttpPost("leave")]
+        [HttpPost("{sessionId}/leave")]
         public IActionResult LeaveSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
             //TODO: Add Current Player ID To be Set For Leaving Session
@@ -147,25 +172,20 @@ namespace XeniaWebServices.Controllers
         [HttpPost("{sessionId}/modify")]
         public IActionResult ModifySession(string titleId, [FromRoute(Name = "sessionId")] string sessionId,[FromBody] Session request)
         {
-            Session.Modify(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Flags, request.PublicSlotsCount, request.PrivateSlotsCount); //Do Logic
-            return Ok();
+            var session = Session.Modify(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId, request.Flags, request.PublicSlotsCount, request.PrivateSlotsCount); //Do Logic
+            return Ok(session);
         }
         [HttpPost("/search")]
         public IActionResult SearchSession(string titleId, [FromBody] Session request)
         {
-            Session.Search(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SearchIndex, request.ResultsCount); //Do Logic
-            return Ok();
+           var session = Session.Search(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), request.SearchIndex, request.ResultsCount); //Do Logic
+            return Ok(session);
         }
-        [HttpPost("{sessionId}")]
-        public IActionResult CurrentSession(string titleId, [FromRoute(Name = "sessionId")] string sessionId)
-        {
 
-            return Ok();
-        }
         [HttpPost("{sessionId}/arbitration")]
         public IActionResult Arbitration(string titleId, [FromRoute(Name = "sessionId")] string sessionId, [FromBody] Session request)
         {
-           var session = Session.Get(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
+           var session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
             if(session == null)
             {
                 Ok("Session not found.");
@@ -197,8 +217,31 @@ namespace XeniaWebServices.Controllers
             var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             return File(stream, "application/octet-stream"); // Change the content type as needed
         }
+        [HttpPost("{sessionId}/leaderboards")]
+        public IActionResult Leaderboards([FromRoute(Name = "titleId")] string titleId, [FromRoute(Name = "sessionId")] string sessionId, WriteStatsRequest writeStats )
+        {
+            return Ok();
+        }
+        [HttpPost("{sessionId}/migrate")]
+        public async Task<IActionResult> MigrateSession(string titleId, string sessionId, [FromBody] Session request)
+        {
+            var session = Session.Find(int.Parse(titleId, System.Globalization.NumberStyles.HexNumber), sessionId);
 
-        [HttpPost("{sessionId}/qos")]
+            if (session == null)
+            {
+                throw new NotFoundException("Session not found.");
+            }
+
+            var newSession = Session.Migrate(
+                int.Parse(titleId, System.Globalization.NumberStyles.HexNumber),
+                    sessionId,
+                    request.HostAddress,
+                    request.MacAddress,
+                    request.Port
+                ); 
+            return Ok(newSession); // Assuming you want to return the migrated session.
+        } 
+    [HttpPost("{sessionId}/qos")]
         public async Task<IActionResult> QosUpload(string titleId, string sessionId, [FromBody] string rawBody)
         {
             try
@@ -218,7 +261,6 @@ namespace XeniaWebServices.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-
         public class SessionRequest
         {
             public int? flags { get; internal set; }
@@ -229,42 +271,21 @@ namespace XeniaWebServices.Controllers
             public string? macAddress { get; internal set; }
             public int? port { get; internal set; }
         }
-    }
-
-    /// <summary>
-    /// TODO: Delete This Once Fully Intergrated we want to use less files aka classes bieng made just to handle simple logic this was made as a place holder logic idea..
-    /// </summary>
-    public class SessionFlags
-    {
-        private readonly int value;
-
-        public SessionFlags(int value)
+        public class WriteStatsRequestLeaderboardStatistic
         {
-            this.value = value;
+            public int Type { get; set; }
+            public int Value { get; set; }
         }
 
-        public SessionFlags Modify(SessionFlags flags)
+        public class WriteStatsRequestLeaderboard
         {
-            // TODO: Implement modification logic here.
-            // For now, we'll return the original flags as an example.
-            Console.WriteLine("Session flag modification is not implemented!");
-            return new SessionFlags(value);
+            public Dictionary<string, WriteStatsRequestLeaderboardStatistic> Stats { get; set; }
         }
 
-        public bool Advertised
+        public class WriteStatsRequest
         {
-            get
-            {
-                return (value & (1 << 3)) > 0; // Equivalent to TypeScript: return this.isFlagSet(3);
-            }
-        }
-
-        public bool IsHost
-        {
-            get
-            {
-                return (value & (1 << 0)) > 0; // Equivalent to TypeScript: return this.isFlagSet(0);
-            }
+            public string Xuid { get; set; }
+            public Dictionary<string, WriteStatsRequestLeaderboard> Leaderboards { get; set; }
         }
     }
 

@@ -19,55 +19,55 @@ namespace XeniaWebServices.XenoAPI.Controllers
             _logger = logger;
         }
         internal int title;
-        [HttpGet("servers")]
-        public IActionResult Servers(string titleId)
-        {
-            Session.StaticTitleId = int.Parse(titleId, System.Globalization.NumberStyles.HexNumber);
-            string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
-            string filePath = Path.Combine(directoryPath, "servers.json");
+        //[HttpGet("servers")]
+        //public IActionResult Servers(string titleId)
+        //{
+        //    Session.StaticTitleId = int.Parse(titleId, System.Globalization.NumberStyles.HexNumber);
+        //    string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "titles", titleId.ToUpper());
+        //    string filePath = Path.Combine(directoryPath, "servers.json");
 
-            if (!System.IO.File.Exists(filePath))
-            {
-                // Create the directory if it doesn't exist
-                Directory.CreateDirectory(directoryPath);
+        //    if (!System.IO.File.Exists(filePath))
+        //    {
+        //        // Create the directory if it doesn't exist
+        //        Directory.CreateDirectory(directoryPath);
 
-                // Create and write the JSON content to the file
-                var jsonData = new List<Servers>
-            {
-                new Servers
-                {
-                    address = "http://localhost:36000",
-                    flags = 0,
-                    description = "required,mass_storage,other,ttl,usr,shr,web,dbg,upl,prs,std"
-                }
-            };
+        //        // Create and write the JSON content to the file
+        //        var jsonData = new List<Servers>
+        //    {
+        //        new Servers
+        //        {
+        //            address = "http://localhost:36000",
+        //            flags = 0,
+        //            description = "required,mass_storage,other,ttl,usr,shr,web,dbg,upl,prs,std"
+        //        }
+        //    };
 
-                string jsonContent = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
-                System.IO.File.WriteAllText(filePath, jsonContent);
+        //        string jsonContent = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+        //        System.IO.File.WriteAllText(filePath, jsonContent);
 
-                return new JsonResult(jsonContent)
-                {
-                    StatusCode = 200, // Set the status code to 200 (OK) 
-                    ContentType = "application/json" // Set the Content-Type header.
-                };
-            }
+        //        return new JsonResult(jsonContent)
+        //        {
+        //            StatusCode = 200, // Set the status code to 200 (OK) 
+        //            ContentType = "application/json" // Set the Content-Type header.
+        //        };
+        //    }
 
-            // Read the JSON content from the file
-            string jsonString = System.IO.File.ReadAllText(filePath);
+        //    // Read the JSON content from the file
+        //    string jsonString = System.IO.File.ReadAllText(filePath);
 
-            // Deserialize the JSON string into a List of Servers
-            List<Servers> data = JsonConvert.DeserializeObject<List<Servers>>(jsonString);
+        //    // Deserialize the JSON string into a List of Servers
+        //    List<Servers> data = JsonConvert.DeserializeObject<List<Servers>>(jsonString);
 
-            // Log the JSON content
-            Console.WriteLine($"Servers Response Content: {jsonString}");
+        //    // Log the JSON content
+        //    Console.WriteLine($"Servers Response Content: {jsonString}");
 
-            // Return the JSON content as a JsonResult
-            return new JsonResult(data)
-            {
-                StatusCode = 200, // Set the status code to 200 (OK)
-                ContentType = "application/json" // Set the Content-Type header.
-            };
-        }
+        //    // Return the JSON content as a JsonResult
+        //    return new JsonResult(data)
+        //    {
+        //        StatusCode = 200, // Set the status code to 200 (OK)
+        //        ContentType = "application/json" // Set the Content-Type header.
+        //    };
+        //}
     
 
     [HttpGet("ports")]

@@ -58,7 +58,7 @@ namespace XeniaWebServices.XenoAPI.Controllers
             {
                 return Ok("Session deleted successfully.");
             }
-            var retrievedSession = Session.Get(Session.StaticTitleId, session.SessionId);
+            var retrievedSession = Session.Find(Session.StaticTitleId, session.SessionId);
             string clientIp = HttpContext.Connection.RemoteIpAddress.ToString();
 
             if (clientIp == "::1" || clientIp.StartsWith("192.168"))
