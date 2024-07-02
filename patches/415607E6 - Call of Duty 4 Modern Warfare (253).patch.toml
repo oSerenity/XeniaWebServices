@@ -1,0 +1,18 @@
+title_name = "Call of Duty 4: Modern Warfare"
+title_id = "415607E6" # AV-2022
+hash = "60FD640B7A28C69D" # default_mp.xex
+#media_id = "00000000"
+
+[[patch]]
+    name = "Enable COD4 Systemlink"
+    desc = "Host must enable this"
+    author = "Adrian"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x821B9E3C
+        value = 0x60000000
+
+    [[patch.be32]]
+        address = 0x821B9E48
+        value = 0x60000000

@@ -1,0 +1,31 @@
+{ 
+    "connect": [
+        {
+          "info": "Server",
+          "port": 1022,
+          "mappedTo": 1022
+        }
+    ],
+    "bind": [
+        {
+            "info": "Unknown",
+            "port": 1000,
+            "mappedTo": 1000
+        },
+        {
+            "info": "Unknown",
+            "port": 1001,
+            "mappedTo": 1001
+        },
+        {
+            "info": "Unknown",
+            "port": 1002,
+            "mappedTo": 1002
+        },
+        {
+            "info": "Unknown",
+            "port": 0,
+            "mappedTo": 36001
+        }
+    ]
+}

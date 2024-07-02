@@ -1,0 +1,34 @@
+{
+  "bind": [
+      {
+        "info": "Client Port",
+        "port": 27005,
+        "mappedTo": 27005
+      },
+      {
+        "info": "Server Port",
+        "port": 27015,
+        "mappedTo": 27015
+      },
+      {
+        "info": "SourceTV",
+        "port": 27020,
+        "mappedTo": 27020
+      },
+      {
+        "info": "Matchmaking Port",
+        "port": 27025,
+        "mappedTo": 27025
+      },
+      {
+        "info": "Unknown",
+        "port": 27029,
+        "mappedTo": 27029
+      },
+      {
+        "info": "Systemlink Port",
+        "port": 27030,
+        "mappedTo": 27030
+      }
+  ]
+}

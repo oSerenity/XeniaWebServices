@@ -1,0 +1,24 @@
+{
+  "bind": [
+    {
+      "info": "Player 1",
+      "port": 1000,
+      "mappedTo": 1000
+    },
+    {
+      "info": "Unknown",
+      "port": 17185,
+      "mappedTo": 17185
+    },
+    {
+      "info": "Unknown",
+      "port": 25614,
+      "mappedTo": 25614
+    },
+    {
+      "info": "Unknown",
+      "port": 42566,
+      "mappedTo": 42566
+    }
+  ]
+}

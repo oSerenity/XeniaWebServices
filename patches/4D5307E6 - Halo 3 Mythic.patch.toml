@@ -1,0 +1,68 @@
+title_name = "Halo 3"
+title_id = "4D5307E6" # MS-2022
+hash = "3FE73A3A9C3BD684" # v13.2
+#media_id = "2D357FF4" # Disc (Japan, Europe): http://redump.org/disc/9694
+
+[[patch]]
+    name = "Network Matchmaking Force Search"
+    desc = "networking:logic:life-cycle:matchmaking_start: FORCE SEARCH"
+    author = "twister"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x823FD1A0
+        value = 0x38600001 # li r3,1
+
+    [[patch.be32]]
+        address = 0x823FD1A4
+        value = 0x4E800020 # blr
+
+[[patch]]
+    name = "Network Matchmaking Force Gather"
+    desc = "networking:logic:life-cycle:matchmaking_start: FORCE GATHER"
+    author = "twister"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x823FD1A0
+        value = 0x38600002 # li r3,2
+
+    [[patch.be32]]
+        address = 0x823FD1A4
+        value = 0x4E800020 # blr
+
+[[patch]]
+    name = "Allow public IP addresses."
+    desc = "Allows the game to connect to players who are not on the current network."
+    author = "craftycodie"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x823B7468 # transport_address_get_insecure_xbox_address
+        value = 0x60000000
+
+# Temp fix for service tags
+
+[[patch]]
+    name = "Disable string validation"
+    desc = "Crude temporary solution"
+    author = "codie"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x826D339C
+        value = 0x60000000
+
+[[patch]]
+    name = "Ignore session arbitration"
+    desc = "Crude temporary solution"
+    author = "codie"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82400C40
+        value = 0x4800
+
+    [[patch.be16]]
+        address = 0x82400C60
+        value = 0x4800

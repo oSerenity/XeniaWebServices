@@ -1,0 +1,19 @@
+{
+    "bind": [
+        {
+            "info": "Unknown",
+            "port": 1000,
+            "mappedTo": 1000
+        },
+        {
+            "info": "Unknown",
+            "port": 1005,
+            "mappedTo": 1005
+        },
+        {
+            "info": "Unknown",
+            "port": 5679,
+            "mappedTo": 5679
+        }
+    ]
+}

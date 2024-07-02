@@ -1,0 +1,18 @@
+title_name = "Call of Duty 2"
+title_id = "415607D1"
+hash = "C2A9B9D9E1D01667" # default_mp.xex
+#media_id = "00000000"
+
+[[patch]]
+    name = "Enable COD2 Systemlink"
+    desc = "Host must enable this"
+    author = "Adrian"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x82331058
+        value = 0x60000000
+
+    [[patch.be32]]
+        address = 0x82331064
+        value = 0x60000000

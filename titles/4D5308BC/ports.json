@@ -1,0 +1,119 @@
+{
+  "bind": [
+      {
+        "info": "Player port 1.",
+        "port": 1000,
+        "mappedTo": 1000
+      },
+      {
+        "info": "Unknown",
+        "port": 1001,
+        "mappedTo": 1001
+      },
+      {
+        "info": "Unknown",
+        "port": 36001,
+        "mappedTo": 36001
+      },
+      {
+        "info": "Unknown",
+        "port": 36002,
+        "mappedTo": 36002
+      },
+      {
+        "info": "Unknown",
+        "port": 36003,
+        "mappedTo": 36003
+      },
+      {
+        "info": "Unknown",
+        "port": 36004,
+        "mappedTo": 36004
+      },
+      {
+        "info": "Unknown",
+        "port": 36005,
+        "mappedTo": 36005
+      },
+      {
+        "info": "Unknown",
+        "port": 36006,
+        "mappedTo": 36006
+      },
+      {
+        "info": "Unknown",
+        "port": 36007,
+        "mappedTo": 36007
+      },
+      {
+        "info": "Unknown",
+        "port": 36008,
+        "mappedTo": 36008
+      },
+      {
+        "info": "Unknown",
+        "port": 36009,
+        "mappedTo": 36009
+      },
+      {
+        "info": "Unknown",
+        "port": 36010,
+        "mappedTo": 36010
+      },
+      {
+        "info": "Unknown",
+        "port": 36011,
+        "mappedTo": 36011
+      },
+      {
+        "info": "Unknown",
+        "port": 36012,
+        "mappedTo": 36012
+      },
+      {
+        "info": "Unknown",
+        "port": 36013,
+        "mappedTo": 36013
+      },
+      {
+        "info": "Unknown",
+        "port": 36014,
+        "mappedTo": 36014
+      },
+      {
+        "info": "Unknown",
+        "port": 36015,
+        "mappedTo": 36015
+      },
+      {
+        "info": "Unknown",
+        "port": 36016,
+        "mappedTo": 36016
+      },
+      {
+        "info": "Unknown",
+        "port": 36017,
+        "mappedTo": 36017
+      },
+      {
+        "info": "Unknown",
+        "port": 36018,
+        "mappedTo": 36018
+      },
+      {
+        "info": "Unknown",
+        "port": 36019,
+        "mappedTo": 36019
+      },
+      {
+        "info": "Unknown",
+        "port": 36020,
+        "mappedTo": 36020
+      },
+      {
+        "info": "Unknown",
+        "port": 36021,
+        "mappedTo": 36021
+      }
+  ]
+}

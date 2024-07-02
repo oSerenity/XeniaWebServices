@@ -1,0 +1,24 @@
+{
+  "bind": [
+      {
+        "info": "Client Port",
+        "port": 27005,
+        "mappedTo": 27005
+      },
+      {
+        "info": "Server Port",
+        "port": 27015,
+        "mappedTo": 27015
+      },
+      {
+        "info": "Matchmaking Port",
+        "port": 27025,
+        "mappedTo": 27025
+      },
+      {
+        "info": "Systemlink Port",
+        "port": 27030,
+        "mappedTo": 27030
+      }
+  ]
+}

@@ -1,0 +1,18 @@
+title_name = "Quantum of Solace"
+title_id = "415607FF" # AV-2047
+hash = "BC3F3CCCF880F4EC" # default_mp.xex
+#media_id = "06DD88A0" Disc (USA, Europe): http://redump.org/disc/12335
+
+[[patch]]
+    name = "Enable QoS Systemlink"
+    desc = "Host must enable this"
+    author = "Adrian"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x8228FA5C
+        value = 0x60000000
+
+    [[patch.be32]]
+        address = 0x8228FA68
+        value = 0x60000000

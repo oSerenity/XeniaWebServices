@@ -1,0 +1,18 @@
+title_name = "Call of Duty 4: Modern Warfare"
+title_id = "415607E6" # AV-2022
+hash = "E54CFDD4A9E028F1" # default_mp.xex
+#media_id = "15E8CF88" Disc (USA, Europe): http://redump.org/disc/12660
+
+[[patch]]
+    name = "Enable COD4 Systemlink"
+    desc = "Host must enable this"
+    author = "Adrian"
+    is_enabled = true
+
+    [[patch.be32]]
+        address = 0x821FE284
+        value = 0x60000000
+
+    [[patch.be32]]
+        address = 0x821FE290
+        value = 0x60000000
